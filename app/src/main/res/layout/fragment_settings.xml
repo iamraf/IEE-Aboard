@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/guide_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="invisible" />
+
+        <LinearLayout
+            android:id="@+id/content_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans_semibold"
+                android:text="@string/account" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="1dp"
+                android:elevation="4dp"
+                app:cardCornerRadius="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/logout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:drawablePadding="16dp"
+                        android:fontFamily="@font/open_sans_semibold"
+                        android:foreground="?selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:padding="16dp"
+                        android:text="@string/logout"
+                        android:textColor="?android:attr/textColorPrimary"
+                        app:drawableStartCompat="@drawable/ic_baseline_exit_to_app_24"
+                        app:drawableTint="?attr/colorSecondary" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tags"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:drawablePadding="16dp"
+                        android:fontFamily="@font/open_sans_semibold"
+                        android:foreground="?selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:padding="16dp"
+                        android:text="@string/subscribed_tags"
+                        android:textColor="?android:attr/textColorPrimary"
+                        app:drawableStartCompat="@drawable/ic_baseline_remove_red_eye_24"
+                        app:drawableTint="?attr/colorSecondary" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/open_sans_semibold"
+                android:text="@string/application" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="1dp"
+                android:elevation="4dp"
+                app:cardCornerRadius="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/theme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:drawablePadding="16dp"
+                        android:fontFamily="@font/open_sans_semibold"
+                        android:foreground="?selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:padding="16dp"
+                        android:text="@string/theme"
+                        android:textColor="?android:attr/textColorPrimary"
+                        app:drawableStartCompat="@drawable/ic_baseline_invert_colors_24"
+                        app:drawableTint="?attr/colorSecondary" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/notifications"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:foreground="?selectableItemBackground">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:drawablePadding="16dp"
+                            android:fontFamily="@font/open_sans_semibold"
+                            android:gravity="center_vertical"
+                            android:padding="16dp"
+                            android:text="@string/notifications"
+                            android:textColor="?android:attr/textColorPrimary"
+                            app:drawableStartCompat="@drawable/ic_baseline_notifications_24"
+                            app:drawableTint="?attr/colorSecondary"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/check_box"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.google.android.material.checkbox.MaterialCheckBox
+                            android:id="@+id/check_box"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/rate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:drawablePadding="16dp"
+                        android:fontFamily="@font/open_sans_semibold"
+                        android:foreground="?selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:padding="16dp"
+                        android:text="@string/rate"
+                        android:textColor="?android:attr/textColorPrimary"
+                        app:drawableStartCompat="@drawable/ic_baseline_star_24"
+                        app:drawableTint="?attr/colorSecondary" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/bug"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:drawablePadding="16dp"
+                        android:fontFamily="@font/open_sans_semibold"
+                        android:foreground="?selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:padding="16dp"
+                        android:text="@string/report"
+                        android:textColor="?android:attr/textColorPrimary"
+                        app:drawableStartCompat="@drawable/ic_baseline_bug_report_24"
+                        app:drawableTint="?attr/colorSecondary" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/open_sans_semibold"
+                android:text="@string/info" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="1dp"
+                android:elevation="4dp"
+                app:cardCornerRadius="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/sourcecode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:drawablePadding="16dp"
+                        android:fontFamily="@font/open_sans_semibold"
+                        android:foreground="?selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:padding="16dp"
+                        android:text="@string/sourcecode"
+                        android:textColor="?android:attr/textColorPrimary"
+                        app:drawableStartCompat="@drawable/ic_baseline_github_24"
+                        app:drawableTint="?attr/colorSecondary" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/privacy"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:drawablePadding="16dp"
+                        android:fontFamily="@font/open_sans_semibold"
+                        android:foreground="?selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:padding="16dp"
+                        android:text="@string/privacy"
+                        android:textColor="?android:attr/textColorPrimary"
+                        app:drawableStartCompat="@drawable/ic_baseline_insert_drive_file_24"
+                        app:drawableTint="?attr/colorSecondary" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:drawablePadding="16dp"
+                        android:fontFamily="@font/open_sans_semibold"
+                        android:foreground="?selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:padding="16dp"
+                        android:text="@string/tos"
+                        android:textColor="?android:attr/textColorPrimary"
+                        app:drawableStartCompat="@drawable/ic_baseline_info_24"
+                        app:drawableTint="?attr/colorSecondary" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/version_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/open_sans_semibold"
+                android:textAlignment="center"
+                android:textColor="?android:attr/textColorSecondary" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

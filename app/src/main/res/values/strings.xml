@@ -1,0 +1,66 @@
+<resources>
+    <string name="app_name">IEE Aboard</string>
+
+    <!-- MainActivity -->
+    <string name="announcements">Ανακοινώσεις</string>
+
+    <!-- Announcements -->
+    <string name="login">Σύνδεση</string>
+    <string name="search">Αναζήτηση</string>
+    <string name="notifications">Ειδοποιήσεις</string>
+    <string name="settings">Ρυθμίσεις</string>
+
+    <!-- Details -->
+    <string name="attachments">Συνημμένα:</string>
+    <string name="tags_">Ετικέτες:</string>
+    <string name="copy_link">Αντιγραφή συνδέσμου</string>
+    <string name="copy_success">Η αντιγραφή έγινε επιτυχώς</string>
+
+    <!-- Notifications -->
+    <string name="notification_announcement">Ο/η %1$s ανέβασε ανακοίνωση με τίτλο %2$s</string>
+    <string name="notification_push">Νέα ανακοίνωση στην κατηγορία %1$s</string>
+    <string name="notification_new">Νέα</string>
+
+    <!-- Settings -->
+    <string name="logout">Αποσύνδεση</string>
+    <string name="subscribed_tags">Εγγεγραμμένες ετικέτες</string>
+    <string name="theme">Θέμα</string>
+    <string name="rate">Αξιολόγηση εφαρμογής</string>
+    <string name="report">Αναφορά προβλήματος</string>
+    <string name="privacy">Πολιτική απορρήτου</string>
+    <string name="tos">Όροι χρήσης</string>
+    <string name="version">Έκδοση %1$s</string>
+    <string name="account">Λογαριασμός</string>
+    <string name="application">Εφαρμογή</string>
+    <string name="info">Πληροφορίες</string>
+    <string name="sourcecode">Πηγαίος κώδικας</string>
+
+    <string name="are_you_sure_you_want_to_logout">Είστε σίγουροι ότι θέλετε να αποσυνδεθείτε;</string>
+    <string name="yes">Nαι</string>
+    <string name="no">Όχι</string>
+    <string name="ok">Εντάξει</string>
+    <string name="cancel">Άκυρο</string>
+
+    <string name="report_problem_text">Αναφέρετε προβλήματα που αφορούν μόνο την εφαρμογή και όχι προβλήματα που αφορούν τον λογιαριασμό σας ή τις ανακοινώσεις</string>
+    <string name="report_your_problem_here">Αναφέρετε το πρόβλημα σας εδώ:\n</string>
+
+    <!-- Search -->
+    <string name="search_hint">Με βάση τον τίτλο…</string>
+
+    <!-- Tags -->
+    <string name="apply">Αλλαγή</string>
+    <string name="changes_made_successfully">Η αλλαγές πραγματοποιήθηκαν επιτυχώς</string>
+
+    <!-- Authentication -->
+    <string name="authentication">Ταυτοποίηση</string>
+
+    <!-- Footer -->
+    <string name="retry">Επανάληψη</string>
+    <string name="default_notification_channel_id">default</string>
+
+    <!-- Response Errors -->
+    <string name="unknown_error">Παρουσιάστηκε άγνωστο σφάλμα</string>
+    <string name="no_internet_connection">Δεν υπάρχει πρόσβαση στο διαδίκτυο</string>
+    <string name="time_out">Η σύνδεση έλειξε, δοκιμάστε ξανά</string>
+    <string name="no_announcements_found">Δεν βρέθηκαν ανακοινώσεις</string>
+</resources>
