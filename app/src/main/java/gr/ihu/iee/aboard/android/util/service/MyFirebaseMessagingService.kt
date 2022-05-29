@@ -58,7 +58,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 notificationManager.createNotificationChannel(notificationChannel)
             }
 
-            val id: Long = remoteMessage.data["id"]?.toLong() ?: -1
+            val id: String = remoteMessage.data["id"] ?: "-"
             val title: String = remoteMessage.data["title"] ?: "-"
             val tag: String = remoteMessage.data["tag"] ?: "-"
             val author: String = remoteMessage.data["author"] ?: "-"
@@ -71,7 +71,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 .setDefaults(Notification.DEFAULT_LIGHTS or Notification.DEFAULT_SOUND or Notification.DEFAULT_VIBRATE)
 
             val args = Bundle()
-            args.putLong("id", id)
+            args.putString("id", id)
             args.putString("title", tag)
 
             val pendingIntent: PendingIntent = NavDeepLinkBuilder(applicationContext)
