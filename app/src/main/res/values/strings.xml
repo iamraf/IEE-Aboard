@@ -61,6 +61,6 @@
     <!-- Response Errors -->
     <string name="unknown_error">Παρουσιάστηκε άγνωστο σφάλμα</string>
     <string name="no_internet_connection">Δεν υπάρχει πρόσβαση στο διαδίκτυο</string>
-    <string name="time_out">Η σύνδεση έλειξε, δοκιμάστε ξανά</string>
+    <string name="time_out">Η σύνδεση έληξε, δοκιμάστε ξανά</string>
     <string name="no_announcements_found">Δεν βρέθηκαν ανακοινώσεις</string>
 </resources>
