@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Raf
+ * Copyright (C) 2020-2024 Raf
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,16 +20,20 @@ package gr.ihu.iee.aboard.android.ui.search
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.SearchView
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import dagger.hilt.android.AndroidEntryPoint
 import gr.ihu.iee.aboard.android.R
-import gr.ihu.iee.aboard.android.base.BaseMenuFragment
+import gr.ihu.iee.aboard.android.base.BaseFragment
 import gr.ihu.iee.aboard.android.databinding.FragmentSearchBinding
 import gr.ihu.iee.aboard.android.domain.announcements.entity.Announcement
 import gr.ihu.iee.aboard.android.ui.announcements.AnnouncementsPagingAdapter
@@ -40,7 +44,7 @@ import gr.ihu.iee.aboard.android.util.extentions.safeNavigate
 import jp.wasabeef.recyclerview.animators.FadeInDownAnimator
 
 @AndroidEntryPoint
-class SearchFragment : BaseMenuFragment<FragmentSearchBinding>(), AnnouncementsPagingAdapter.AnnouncementsAdapterListener {
+class SearchFragment : BaseFragment<FragmentSearchBinding>(), MenuProvider, AnnouncementsPagingAdapter.AnnouncementsAdapterListener {
 
     override fun initViewBinding(): FragmentSearchBinding = FragmentSearchBinding.inflate(layoutInflater)
 
@@ -53,12 +57,15 @@ class SearchFragment : BaseMenuFragment<FragmentSearchBinding>(), AnnouncementsP
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
         setupViews()
         setupObservers()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_search, menu)
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.menu_search, menu)
 
         val searchView = menu.findItem(R.id.search).actionView as SearchView
         searchView.apply {
@@ -84,8 +91,10 @@ class SearchFragment : BaseMenuFragment<FragmentSearchBinding>(), AnnouncementsP
                 }
             })
         }
+    }
 
-        super.onCreateOptionsMenu(menu, inflater)
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        return false
     }
 
     private fun setupViews() {

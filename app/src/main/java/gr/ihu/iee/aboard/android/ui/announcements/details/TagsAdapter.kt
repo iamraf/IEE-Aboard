@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Raf
+ * Copyright (C) 2020-2024 Raf
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package gr.ihu.iee.aboard.android.ui.announcements.adapter
+package gr.ihu.iee.aboard.android.ui.announcements.details
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -24,7 +24,7 @@ import androidx.recyclerview.widget.RecyclerView
 import gr.ihu.iee.aboard.android.databinding.ItemTagBinding
 import gr.ihu.iee.aboard.android.util.diffutil.STRING_DIFF_UTIL
 
-class TagsSingleAdapter : ListAdapter<String, TagsSingleAdapter.TagViewHolder>(STRING_DIFF_UTIL) {
+class TagsAdapter : ListAdapter<String, TagsAdapter.TagViewHolder>(STRING_DIFF_UTIL) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TagViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -37,7 +37,10 @@ class TagsSingleAdapter : ListAdapter<String, TagsSingleAdapter.TagViewHolder>(S
         holder.bind(getItem(position))
     }
 
-    inner class TagViewHolder(private val binding: ItemTagBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class TagViewHolder(
+        private val binding: ItemTagBinding,
+    ) : RecyclerView.ViewHolder(binding.root) {
+
         fun bind(item: String) {
             with(binding) {
                 titleTxt.text = item

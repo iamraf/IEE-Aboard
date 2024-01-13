@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Raf
+ * Copyright (C) 2020-2024 Raf
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,6 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.text.Html
 import android.view.Menu
@@ -30,24 +29,27 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.navArgs
+import com.google.android.flexbox.FlexDirection.ROW
+import com.google.android.flexbox.FlexboxLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import gr.ihu.iee.aboard.android.R
-import gr.ihu.iee.aboard.android.base.BaseMenuFragment
+import gr.ihu.iee.aboard.android.base.BaseFragment
 import gr.ihu.iee.aboard.android.databinding.FragmentDetailsBinding
 import gr.ihu.iee.aboard.android.domain.announcements.entity.Announcement
 import gr.ihu.iee.aboard.android.domain.announcements.entity.Attachment
-import gr.ihu.iee.aboard.android.ui.announcements.adapter.TagsMultiRowAdapter
-import gr.ihu.iee.aboard.android.util.API_URL
 import gr.ihu.iee.aboard.android.util.COPY_URL
 import gr.ihu.iee.aboard.android.util.extentions.getMessage
 import gr.ihu.iee.aboard.android.util.manager.PreferencesManager
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class DetailsFragment : BaseMenuFragment<FragmentDetailsBinding>(), AttachmentsAdapter.AttachmentsAdapterListener {
+class DetailsFragment : BaseFragment<FragmentDetailsBinding>(), AttachmentsAdapter.AttachmentsAdapterListener {
 
     override fun initViewBinding(): FragmentDetailsBinding = FragmentDetailsBinding.inflate(layoutInflater)
 
@@ -55,6 +57,7 @@ class DetailsFragment : BaseMenuFragment<FragmentDetailsBinding>(), AttachmentsA
     private val args: DetailsFragmentArgs by navArgs()
 
     private val attachmentsAdapter: AttachmentsAdapter by lazy { AttachmentsAdapter(this) }
+    private val tagsAdapter: TagsAdapter by lazy { TagsAdapter() }
 
     @Inject
     lateinit var preferencesManager: PreferencesManager
@@ -62,35 +65,41 @@ class DetailsFragment : BaseMenuFragment<FragmentDetailsBinding>(), AttachmentsA
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val menuHost: MenuHost = requireActivity()
+
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.menu_details, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    R.id.copy -> {
+                        val clipboard: ClipboardManager = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                        val clip = ClipData.newPlainText("announcement", COPY_URL + args.id)
+
+                        clipboard.setPrimaryClip(clip)
+                        Toast.makeText(activity, getString(R.string.copy_success), Toast.LENGTH_SHORT).show()
+
+                        true
+                    }
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
         setupViews()
         setupObservers()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_details, menu)
-
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.copy -> {
-                val clipboard: ClipboardManager = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                val clip = ClipData.newPlainText("announcement", COPY_URL + args.id)
-
-                clipboard.setPrimaryClip(clip)
-                Toast.makeText(activity, getString(R.string.copy_success), Toast.LENGTH_SHORT).show()
-
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
     }
 
     private fun setupViews() {
         with(binding) {
             tagsRecycler.apply {
-                setHasFixedSize(false)
+                val manager = FlexboxLayoutManager(context)
+                manager.flexDirection = ROW
+
+                layoutManager = manager
+                adapter = tagsAdapter
             }
 
             attachmentRecycler.apply {
@@ -122,12 +131,7 @@ class DetailsFragment : BaseMenuFragment<FragmentDetailsBinding>(), AttachmentsA
         with(binding) {
             val text = announcement.body
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                bodyTxt.text = Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY)
-            } else {
-                @Suppress("DEPRECATION")
-                bodyTxt.text = Html.fromHtml(text)
-            }
+            bodyTxt.text = Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY)
 
             titleTxt.text = announcement.title
             authorTxt.text = announcement.author
@@ -141,13 +145,7 @@ class DetailsFragment : BaseMenuFragment<FragmentDetailsBinding>(), AttachmentsA
             }
 
             if (announcement.tags.isNotEmpty()) {
-                val list = mutableListOf<String>()
-
-                announcement.tags.forEach {
-                    list.add(it.title)
-                }
-
-                tagsRecycler.adapter = TagsMultiRowAdapter(list)
+                tagsAdapter.submitList(announcement.tags.map { it.title })
             }
 
             contentLayout.isVisible = true
@@ -175,7 +173,7 @@ class DetailsFragment : BaseMenuFragment<FragmentDetailsBinding>(), AttachmentsA
     }
 
     override fun onClick(item: Attachment) {
-        var url = "${API_URL}announcements/${item.announcementId}/attachments/${item.id}?action=download"
+        var url = item.url
 
         preferencesManager.accessToken?.let {
             url += "&access_token=$it"

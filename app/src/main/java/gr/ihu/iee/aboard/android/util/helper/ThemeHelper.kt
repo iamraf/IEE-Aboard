@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Raf
+ * Copyright (C) 2020-2024 Raf
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,6 +23,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
 
 object ThemeHelper {
+
     fun applyTheme(themePref: String) {
         when (themePref) {
             "light" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Raf
+ * Copyright (C) 2020-2024 Raf
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,6 +22,7 @@ import gr.ihu.iee.aboard.android.data.announcements.model.RemoteAttachment
 import gr.ihu.iee.aboard.android.data.tags.mapper.toTag
 import gr.ihu.iee.aboard.android.domain.announcements.entity.Announcement
 import gr.ihu.iee.aboard.android.domain.announcements.entity.Attachment
+import gr.ihu.iee.aboard.android.util.date.DateUtils
 
 fun RemoteAnnouncement.toAnnouncement(): Announcement =
     Announcement(
@@ -35,12 +36,14 @@ fun RemoteAnnouncement.toAnnouncement(): Announcement =
         tags = tags?.mapNotNull { tag ->
             tag?.toTag()
         } ?: emptyList(),
-        updatedAt = updatedAt ?: "-"
+        updatedAt = updatedAt ?: "-",
+        isPinned = isPinned != null && isPinned == 1L && pinnedUntil != null && DateUtils.isDateValid(pinnedUntil)
     )
 
 fun RemoteAttachment.toAttachment(): Attachment =
     Attachment(
         id = id ?: "-",
         announcementId = announcementId ?: "-",
-        fileName = fileName ?: "-"
+        fileName = fileName ?: "-",
+        url = attachmentUrl ?: "-"
     )

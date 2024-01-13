@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Raf
+ * Copyright (C) 2020-2024 Raf
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,15 +17,16 @@
 
 package gr.ihu.iee.aboard.android.ui.announcements
 
-import android.os.Build
 import android.text.Html
 import android.view.LayoutInflater
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import gr.ihu.iee.aboard.android.databinding.ItemAnnouncementBinding
 import gr.ihu.iee.aboard.android.domain.announcements.entity.Announcement
-import gr.ihu.iee.aboard.android.ui.announcements.adapter.TagsSingleAdapter
+import gr.ihu.iee.aboard.android.ui.announcements.details.TagsAdapter
 import gr.ihu.iee.aboard.android.util.diffutil.ANNOUNCEMENT_DIFF_UTIL
 
 class AnnouncementsPagingAdapter(
@@ -45,7 +46,10 @@ class AnnouncementsPagingAdapter(
         }
     }
 
-    inner class AnnouncementViewHolder(private val binding: ItemAnnouncementBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class AnnouncementViewHolder(
+        private val binding: ItemAnnouncementBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+
         init {
             binding.root.setOnClickListener {
                 if (bindingAdapterPosition < 0) return@setOnClickListener
@@ -60,18 +64,15 @@ class AnnouncementsPagingAdapter(
             with(binding) {
                 val text = item.body
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    bodyTxt.text = Html.fromHtml(text, Html.FROM_HTML_MODE_COMPACT).toString()
-                } else {
-                    @Suppress("DEPRECATION")
-                    bodyTxt.text = Html.fromHtml(text).toString()
-                }
+                pinImg.visibility = if (item.isPinned) VISIBLE else GONE
+
+                bodyTxt.text = Html.fromHtml(text, Html.FROM_HTML_MODE_COMPACT).toString()
 
                 titleTxt.text = item.title
                 authorTxt.text = item.author
                 dateTxt.text = item.updatedAt
 
-                val tagsAdapter = TagsSingleAdapter()
+                val tagsAdapter = TagsAdapter()
 
                 tagsRecycler.apply {
                     adapter = tagsAdapter
@@ -94,6 +95,7 @@ class AnnouncementsPagingAdapter(
     }
 
     interface AnnouncementsAdapterListener {
+
         fun onClick(item: Announcement)
     }
 }

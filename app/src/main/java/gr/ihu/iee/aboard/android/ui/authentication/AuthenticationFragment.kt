@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Raf
+ * Copyright (C) 2020-2024 Raf
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,6 +22,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
@@ -58,7 +59,9 @@ class AuthenticationFragment : BaseFragment<FragmentAuthenticationBinding>() {
         with(binding) {
             webView.settings.javaScriptEnabled = true
             webView.webViewClient = object : WebViewClient() {
-                override fun shouldOverrideUrlLoading(wView: WebView, url: String): Boolean {
+                override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
+                    val url = request?.url.toString()
+
                     return if (url.contains(LOGIN_URL)) {
                         webView.loadUrl(url)
                         true

@@ -49,7 +49,7 @@
 
     <!-- Tags -->
     <string name="apply">Αλλαγή</string>
-    <string name="changes_made_successfully">Η αλλαγές πραγματοποιήθηκαν επιτυχώς</string>
+    <string name="changes_made_successfully">Οι αλλαγές πραγματοποιήθηκαν επιτυχώς</string>
 
     <!-- Authentication -->
     <string name="authentication">Ταυτοποίηση</string>
@@ -61,6 +61,6 @@
     <!-- Response Errors -->
     <string name="unknown_error">Παρουσιάστηκε άγνωστο σφάλμα</string>
     <string name="no_internet_connection">Δεν υπάρχει πρόσβαση στο διαδίκτυο</string>
-    <string name="time_out">Η σύνδεση έλειξε, δοκιμάστε ξανά</string>
+    <string name="time_out">Η σύνδεση έληξε, δοκιμάστε ξανά</string>
     <string name="no_announcements_found">Δεν βρέθηκαν ανακοινώσεις</string>
 </resources>

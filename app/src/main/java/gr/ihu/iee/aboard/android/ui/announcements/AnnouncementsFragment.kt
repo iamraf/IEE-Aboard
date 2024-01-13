@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Raf
+ * Copyright (C) 2020-2024 Raf
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,13 +23,16 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import dagger.hilt.android.AndroidEntryPoint
 import gr.ihu.iee.aboard.android.R
-import gr.ihu.iee.aboard.android.base.BaseMenuFragment
+import gr.ihu.iee.aboard.android.base.BaseFragment
 import gr.ihu.iee.aboard.android.databinding.FragmentAnnouncementsBinding
 import gr.ihu.iee.aboard.android.domain.announcements.entity.Announcement
 import gr.ihu.iee.aboard.android.util.AuthenticationLiveData
@@ -40,7 +43,7 @@ import gr.ihu.iee.aboard.android.util.helper.ThemeHelper.hasLightMode
 import jp.wasabeef.recyclerview.animators.FadeInDownAnimator
 
 @AndroidEntryPoint
-class AnnouncementsFragment : BaseMenuFragment<FragmentAnnouncementsBinding>(), AnnouncementsPagingAdapter.AnnouncementsAdapterListener {
+class AnnouncementsFragment : BaseFragment<FragmentAnnouncementsBinding>(), MenuProvider, AnnouncementsPagingAdapter.AnnouncementsAdapterListener {
 
     override fun initViewBinding(): FragmentAnnouncementsBinding = FragmentAnnouncementsBinding.inflate(layoutInflater)
 
@@ -54,12 +57,15 @@ class AnnouncementsFragment : BaseMenuFragment<FragmentAnnouncementsBinding>(), 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
         setupViews()
         setupObservers()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_announcements, menu)
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.menu_announcements, menu)
 
         isLoggedIn?.let {
             val search = menu.findItem(R.id.search)
@@ -76,14 +82,11 @@ class AnnouncementsFragment : BaseMenuFragment<FragmentAnnouncementsBinding>(), 
             val login = menu.findItem(R.id.login)
             login.isVisible = !it
         }
-
-        super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        viewModel.handleMenuClick(item.itemId)
-
-        return super.onOptionsItemSelected(item)
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        viewModel.handleMenuClick(menuItem.itemId)
+        return true
     }
 
     private fun setupViews() {

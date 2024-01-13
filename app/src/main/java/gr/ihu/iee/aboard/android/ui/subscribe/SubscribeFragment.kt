@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Raf
+ * Copyright (C) 2020-2024 Raf
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,20 +23,22 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import gr.ihu.iee.aboard.android.R
-import gr.ihu.iee.aboard.android.base.BaseMenuFragment
+import gr.ihu.iee.aboard.android.base.BaseFragment
 import gr.ihu.iee.aboard.android.databinding.FragmentSubscribeBinding
 import gr.ihu.iee.aboard.android.domain.tags.entity.Tag
 import gr.ihu.iee.aboard.android.util.extentions.getMessage
 import jp.wasabeef.recyclerview.animators.FadeInDownAnimator
 
 @AndroidEntryPoint
-class SubscribeFragment : BaseMenuFragment<FragmentSubscribeBinding>(), SubscribeAdapter.SubscribeAdapterListener {
-
+class SubscribeFragment : BaseFragment<FragmentSubscribeBinding>(), MenuProvider, SubscribeAdapter.SubscribeAdapterListener {
 
     override fun initViewBinding(): FragmentSubscribeBinding = FragmentSubscribeBinding.inflate(layoutInflater)
 
@@ -47,23 +49,24 @@ class SubscribeFragment : BaseMenuFragment<FragmentSubscribeBinding>(), Subscrib
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
         setupViews()
         setupObservers()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_tags, menu)
-
-        super.onCreateOptionsMenu(menu, inflater)
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.menu_tags, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        return when (menuItem.itemId) {
             R.id.apply -> {
                 viewModel.updateTags()
                 true
             }
-            else -> super.onOptionsItemSelected(item)
+            else -> false
         }
     }
 

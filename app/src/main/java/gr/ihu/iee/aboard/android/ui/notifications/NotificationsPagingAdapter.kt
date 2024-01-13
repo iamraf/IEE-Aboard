@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Raf
+ * Copyright (C) 2020-2024 Raf
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -44,7 +44,10 @@ class NotificationsPagingAdapter(
         }
     }
 
-    inner class NotificationViewHolder(private val binding: ItemNotificationBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class NotificationViewHolder(
+        private val binding: ItemNotificationBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+
         fun bind(item: Notification) {
             with(binding) {
                 if (item.data.type == "announcement.created") {
@@ -70,6 +73,7 @@ class NotificationsPagingAdapter(
     }
 
     interface NotificationsAdapterListener {
+
         fun onClick(announcementId: String, title: String)
     }
 }

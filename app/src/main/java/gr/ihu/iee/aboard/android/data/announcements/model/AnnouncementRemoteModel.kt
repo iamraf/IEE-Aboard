@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Raf
+ * Copyright (C) 2020-2024 Raf
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -54,11 +54,9 @@ data class RemoteAttachment(
     val id: String?,
     @field:Json(name = "announcement_id") val announcementId: String?,
     @field:Json(name = "filename") val fileName: String?,
+    @field:Json(name = "filesize") val fileSize: Long?,
     @field:Json(name = "mime_type") val mimeType: String?,
-    @field:Json(name = "file_size") val fileSize: Long?,
-    @field:Json(name = "created_at") val createdAt: String?,
-    @field:Json(name = "updated_at") val updatedAt: String?,
-    @field:Json(name = "deleted_at") val deletedAt: String?,
+    @field:Json(name = "attachment_url") val attachmentUrl: String?,
 )
 
 @Keep

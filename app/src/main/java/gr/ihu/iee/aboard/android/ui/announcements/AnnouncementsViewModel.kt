@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Raf
+ * Copyright (C) 2020-2024 Raf
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -93,7 +93,6 @@ class AnnouncementsViewModel @Inject constructor(
     }
 
     fun handleAnnouncementClick(announcement: Announcement) {
-        val title = if (announcement.tags.isNotEmpty()) announcement.tags[0].title else announcement.title
-        _navigation.value = AnnouncementsFragmentDirections.actionAnnouncementsFragmentToDetailsFragment(announcement.id, title)
+        _navigation.value = AnnouncementsFragmentDirections.actionAnnouncementsFragmentToDetailsFragment(announcement.id, announcement.title)
     }
 }

@@ -21,6 +21,7 @@ Project is implemented following Clean MVVM architectural pattern and uses:
 * Retrofit: [https://square.github.io/retrofit](https://square.github.io/retrofit)
 * Moshi: [https://github.com/square/moshi](https://github.com/square/moshi)
 * Animators: [https://github.com/wasabeef/recyclerview-animators](https://github.com/wasabeef/recyclerview-animators)
+* FlexboxLayout: [https://github.com/google/flexbox-layout](https://github.com/google/flexbox-layout)
 * Cloud Messaging: [https://firebase.google.com/products/cloud-messaging](https://firebase.google.com/products/cloud-messaging)
 * Realtime Database: [https://firebase.google.com/products/realtime-database](https://firebase.google.com/products/realtime-database)
 * Analytics: [https://firebase.google.com/products/analytics](https://firebase.google.com/products/analytics)

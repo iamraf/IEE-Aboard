@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Raf
+ * Copyright (C) 2020-2024 Raf
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,7 +40,10 @@ class SubscribeAdapter(
         holder.bind(getItem(position))
     }
 
-    inner class SubscribeViewHolder(private val binding: ItemSubscribeBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class SubscribeViewHolder(
+        private val binding: ItemSubscribeBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+
         init {
             binding.root.setOnClickListener {
                 if (bindingAdapterPosition < 0) return@setOnClickListener
@@ -62,6 +65,7 @@ class SubscribeAdapter(
     }
 
     interface SubscribeAdapterListener {
+
         fun onClick(item: Tag)
     }
 }
