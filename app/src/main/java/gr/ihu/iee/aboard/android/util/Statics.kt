@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Raf
+ * Copyright (C) 2020-2025 Raf
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@ const val CLIENT_SECRET = ""
 
 const val LOGIN_URL = "https://login.iee.ihu.gr/"
 const val RESPONSE_URL = "https://github.com/iamraf/IEE-Aboard"
-const val AUTHORIZATION_URL = "https://login.iee.ihu.gr/authorization/?client_id=$CLIENT_ID&redirect_uri=$RESPONSE_URL&response_type=code&scope=announcements,profile,notifications,refresh_token"
+const val AUTHORIZATION_URL = "https://login.iee.ihu.gr/authorization?client_id=$CLIENT_ID&redirect_uri=$RESPONSE_URL&response_type=code&scope=announcements,profile,notifications,refresh_token"
 
 const val GRAND_TYPE_AUTHORIZATION = "authorization_code"
 const val GRAND_TYPE_REFRESH_TOKEN = "refresh_token"

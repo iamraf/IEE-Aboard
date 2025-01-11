@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2024 Raf
+ * Copyright (C) 2020-2025 Raf
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,7 +38,6 @@ import gr.ihu.iee.aboard.android.util.AUTHORIZATION_URL
 import gr.ihu.iee.aboard.android.util.LOGIN_URL
 import gr.ihu.iee.aboard.android.util.RESPONSE_URL
 import gr.ihu.iee.aboard.android.util.extentions.getMessage
-
 
 @AndroidEntryPoint
 class AuthenticationFragment : BaseFragment<FragmentAuthenticationBinding>() {

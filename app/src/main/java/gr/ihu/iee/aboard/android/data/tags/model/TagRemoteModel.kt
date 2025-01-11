@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2024 Raf
+ * Copyright (C) 2020-2025 Raf
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,21 +19,25 @@ package gr.ihu.iee.aboard.android.data.tags.model
 
 import androidx.annotation.Keep
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
 @Keep
+@JsonClass(generateAdapter = true)
 data class RemoteTagsResponse(
     val data: List<RemoteTag?>?
 )
 
 @Keep
+@JsonClass(generateAdapter = true)
 data class TagsBody(
     val tags: String
 )
 
 @Keep
+@JsonClass(generateAdapter = true)
 data class RemoteTag(
     val id: String?,
     val title: String?,
-    @field:Json(name = "is_public") val isPublic: Boolean?,
-    @field:Json(name = "parent_id") val parentId: String?
+    @Json(name = "is_public") val isPublic: Boolean?,
+    @Json(name = "parent_id") val parentId: String?
 )
