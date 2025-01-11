@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2024 Raf
+ * Copyright (C) 2020-2025 Raf
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,6 +17,8 @@
 
 package gr.ihu.iee.aboard.android.di
 
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,6 +27,7 @@ import gr.ihu.iee.aboard.android.util.interceptor.TokenAuthenticator
 import gr.ihu.iee.aboard.android.util.interceptor.TokenInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -57,4 +60,14 @@ class AppModule {
     @Singleton
     @Provides
     fun provideHttpInterceptor(): HttpLoggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+
+    @Singleton
+    @Provides
+    fun provideMoshi(): Moshi = Moshi.Builder()
+        .add(KotlinJsonAdapterFactory())
+        .build()
+
+    @Singleton
+    @Provides
+    fun provideMoshiConverterFactory(moshi: Moshi): MoshiConverterFactory = MoshiConverterFactory.create(moshi)
 }

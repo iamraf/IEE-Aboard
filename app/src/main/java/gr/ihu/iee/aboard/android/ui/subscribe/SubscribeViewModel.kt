@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2024 Raf
+ * Copyright (C) 2020-2025 Raf
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -90,12 +90,14 @@ class SubscribeViewModel @Inject constructor(
                 val body = TagsBody(selected.toString())
                 subscribeTagsUseCase(body)
 
-                selected.forEach {
+                val selectedList = selected.toList()
+                selectedList.forEach {
                     FirebaseMessaging.getInstance().subscribeToTopic(it)
                     delay(200)
                 }
 
-                removed.forEach {
+                val removedList = removed.toList()
+                removedList.forEach {
                     FirebaseMessaging.getInstance().unsubscribeFromTopic(it)
                     delay(200)
                 }

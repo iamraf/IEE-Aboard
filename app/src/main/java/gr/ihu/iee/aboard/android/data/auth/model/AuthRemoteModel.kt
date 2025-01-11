@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2024 Raf
+ * Copyright (C) 2020-2025 Raf
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,14 +19,17 @@ package gr.ihu.iee.aboard.android.data.auth.model
 
 import androidx.annotation.Keep
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
 @Keep
+@JsonClass(generateAdapter = true)
 data class ErrorBody(
     val error: String
 )
 
 @Keep
+@JsonClass(generateAdapter = true)
 data class RemoteAuthResponse(
-    @field:Json(name = "access_token") val accessToken: String?,
-    @field:Json(name = "refresh_token") val refreshToken: String?
+    @Json(name = "access_token") val accessToken: String?,
+    @Json(name = "refresh_token") val refreshToken: String?
 )

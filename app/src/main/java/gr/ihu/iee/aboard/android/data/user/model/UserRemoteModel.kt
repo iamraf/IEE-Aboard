@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2024 Raf
+ * Copyright (C) 2020-2025 Raf
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,21 +19,24 @@ package gr.ihu.iee.aboard.android.data.user.model
 
 import androidx.annotation.Keep
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import gr.ihu.iee.aboard.android.data.tags.model.RemoteTag
 
 @Keep
+@JsonClass(generateAdapter = true)
 data class RemoteUserResponse(
     val data: RemoteUser?
 )
 
 @Keep
+@JsonClass(generateAdapter = true)
 data class RemoteUser(
     val id: String?,
     val email: String?,
-    @field:Json(name = "is_admin") val isAdmin: Long?,
-    @field:Json(name = "is_author") val isAuthor: Long?,
-    @field:Json(name = "last_interaction_time") val lastInteractionTime: String?,
-    @field:Json(name = "last_login_at") val lastLoginAt: String?,
+    @Json(name = "is_admin") val isAdmin: Long?,
+    @Json(name = "is_author") val isAuthor: Long?,
+    @Json(name = "last_interaction_time") val lastInteractionTime: String?,
+    @Json(name = "last_login_at") val lastLoginAt: String?,
     val name: String?,
     val subscriptions: List<RemoteTag?>?,
     val uid: String?

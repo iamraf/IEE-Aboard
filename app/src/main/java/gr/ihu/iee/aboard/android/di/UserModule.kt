@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2024 Raf
+ * Copyright (C) 2020-2025 Raf
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,11 +39,11 @@ object UserModule {
 
     @Singleton
     @Provides
-    fun provideUserApi(@ApiClient okHttpClient: OkHttpClient): UserApi {
+    fun provideUserApi(@ApiClient okHttpClient: OkHttpClient, moshiConverterFactory: MoshiConverterFactory): UserApi {
         val retrofit = Retrofit.Builder()
             .baseUrl(API_URL)
             .client(okHttpClient)
-            .addConverterFactory(MoshiConverterFactory.create())
+            .addConverterFactory(moshiConverterFactory)
             .build()
 
         return retrofit.create(UserApi::class.java)

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2024 Raf
+ * Copyright (C) 2020-2025 Raf
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,21 +19,25 @@ package gr.ihu.iee.aboard.android.data.notifications.model
 
 import androidx.annotation.Keep
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
 @Keep
+@JsonClass(generateAdapter = true)
 data class RemoteNotificationsResponse(
     val data: List<RemoteNotification?>?
 )
 
 @Keep
+@JsonClass(generateAdapter = true)
 data class RemoteNotification(
     val id: String?,
-    @field:Json(name = "created_at") val createdAt: String?,
-    @field:Json(name = "read_at") val readAt: String?,
+    @Json(name = "created_at") val createdAt: String?,
+    @Json(name = "read_at") val readAt: String?,
     val data: RemoteNotificationData?
 )
 
 @Keep
+@JsonClass(generateAdapter = true)
 data class RemoteNotificationData(
     val id: String?,
     val type: String?,

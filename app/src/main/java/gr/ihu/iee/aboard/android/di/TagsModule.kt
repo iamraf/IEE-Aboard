@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2024 Raf
+ * Copyright (C) 2020-2025 Raf
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,11 +39,11 @@ object TagsModule {
 
     @Singleton
     @Provides
-    fun provideTagsApi(@ApiClient okHttpClient: OkHttpClient): TagsApi {
+    fun provideTagsApi(@ApiClient okHttpClient: OkHttpClient, moshiConverterFactory: MoshiConverterFactory): TagsApi {
         val retrofit = Retrofit.Builder()
             .baseUrl(API_URL)
             .client(okHttpClient)
-            .addConverterFactory(MoshiConverterFactory.create())
+            .addConverterFactory(moshiConverterFactory)
             .build()
 
         return retrofit.create(TagsApi::class.java)
